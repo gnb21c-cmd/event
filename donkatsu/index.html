@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>아스타나키즈 재방문 돈까스 무한 득템</title>
+<meta name="description" content="10월 26일부터! 20일 안에 다시 오면 수제 돈까스 1접시 득템, 득템한 날부터 또 20일… 무한 반복!">
+<meta name="theme-color" content="#FFE6BF">
+<meta name="color-scheme" content="light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="아스타나키즈">
+<meta property="og:title" content="아스타나키즈 재방문 돈까스 무한 득템!">
+<meta property="og:description" content="오면 올수록 돈까스가 공짜! 10월 26일부터 20일 안에 다시 오면 수제 돈까스 1접시 득템, 무한 반복 🎉">
+<meta property="og:image" content="https://gnb21c-cmd.github.io/event/donkatsu/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:url" content="https://gnb21c-cmd.github.io/event/donkatsu/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://gnb21c-cmd.github.io/event/donkatsu/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8D%BD%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root {
+  --ink: #3B2116;
+  --ink-soft: #6E4E3E;
+  --pink: #F0185C;
+  --pink-dark: #C10E47;
+  --yellow: #FFE04A;
+  --yellow-soft: #FFF4BC;
+  --cream: #FFF6E6;
+  --peach: #FFE6BF;
+  --white: #FFFFFF;
+  --kakao: #FEE500;
+  --kakao-ink: #191919;
+  --round: 'Jua', 'Noto Sans KR', sans-serif;
+  --body: 'Noto Sans KR', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--cream);
+  background-image: radial-gradient(rgba(240, 24, 92, .07) 1.6px, transparent 1.7px);
+  background-size: 18px 18px;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+img { display: block; max-width: 100%; height: auto; }
+b, strong { font-weight: 900; }
+.page { max-width: 480px; margin: 0 auto; overflow: hidden; padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+
+/* ── 맨 위 ── */
+.hero {
+  position: relative;
+  padding: 22px 16px 8px;
+  background: linear-gradient(180deg, var(--peach) 0%, rgba(255, 230, 191, 0) 100%);
+  text-align: center;
+}
+.badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  font-family: var(--round);
+  font-size: 15px;
+  box-shadow: 0 3px 0 var(--ink);
+  transform: rotate(-2deg);
+}
+.outline {
+  text-shadow:
+    0 3px 0 #fff, 3px 0 0 #fff, -3px 0 0 #fff, 0 -3px 0 #fff,
+    2px 2px 0 #fff, -2px 2px 0 #fff, 2px -2px 0 #fff, -2px -2px 0 #fff,
+    0 7px 12px rgba(59, 33, 22, .22);
+}
+.hero h1 {
+  position: relative;
+  z-index: 0;
+  margin: 14px 0 4px;
+  font-family: var(--round);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.5px;
+}
+.hero h1 .t1 { display: block; font-size: clamp(36px, 10.5vw, 50px); color: var(--ink); }
+.hero h1 .t2 { position: relative; display: inline-block; margin-top: 4px; font-size: clamp(54px, 17vw, 78px); color: var(--pink); }
+.hero h1 .t2::after {
+  content: '';
+  position: absolute; left: -4%; right: -4%; bottom: 6%;
+  height: 26%;
+  z-index: -1;
+  border-radius: 999px;
+  background: var(--yellow);
+  transform: rotate(-2deg);
+}
+.hero__sub { margin: 6px 0 16px; font-weight: 700; font-size: 16px; color: var(--ink-soft); }
+.hero__sub mark { background: none; color: var(--pink-dark); }
+.spark { position: absolute; color: var(--yellow); font-size: 26px; line-height: 1; text-shadow: 0 0 0 #fff, 0 2px 0 rgba(59,33,22,.15); pointer-events: none; }
+.spark.s1 { top: 74px; left: 12px; }
+.spark.s2 { top: 122px; right: 10px; font-size: 20px; color: var(--pink); }
+.spark.s3 { top: 150px; left: 8px; font-size: 15px; color: var(--pink); }
+.spark.s4 { top: 40px; right: 40px; font-size: 14px; }
+
+/* 카운트다운 */
+.countdown {
+  position: relative;
+  margin: 8px 0 18px;
+  padding: 20px 14px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: 0 6px 0 var(--ink);
+  text-align: left;
+}
+.countdown__head { margin-bottom: 10px; }
+.countdown__label { font-family: var(--round); font-size: 18px; line-height: 1.3; }
+.countdown__label em { font-style: normal; color: var(--pink); }
+.viewers {
+  position: absolute; top: -15px; right: 12px;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px 3px 7px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--yellow);
+  box-shadow: 0 2px 0 var(--ink);
+  transform: rotate(2deg);
+  font-size: 12px; line-height: 1.4; white-space: nowrap;
+  transition: opacity .4s;
+}
+.viewers__num { font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: 1.5px; }
+.viewers__unit { font-size: 11px; font-weight: 700; color: var(--ink); }
+.viewers:not(.is-ready) .viewers__num { opacity: .35; }
+.viewers.is-off { display: none; }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.tile {
+  padding: 10px 0 7px;
+  border-radius: 16px;
+  background: var(--ink);
+  color: var(--white);
+  text-align: center;
+}
+.tile b { display: block; font-family: var(--round); font-weight: 400; font-size: 34px; line-height: 1.05; color: var(--yellow); font-variant-numeric: tabular-nums; }
+.tile small { display: block; margin-top: 3px; font-size: 12px; font-weight: 700; color: #FFE9D6; }
+.tile b.bump { animation: bump .35s ease-out; }
+@keyframes bump { 0% { transform: translateY(-5px) scale(1.12); } 100% { transform: none; } }
+.live { display: none; font-weight: 700; }
+.live p { margin: 0; }
+.live .live__day { display: inline-block; margin-bottom: 6px; padding: 2px 10px; border-radius: 999px; background: var(--pink); color: var(--white); font-family: var(--round); font-weight: 400; font-size: 15px; }
+.live strong { color: var(--pink-dark); }
+.is-live .tiles { display: none; }
+.is-live .live { display: block; }
+
+.poster { margin: 0 0 6px; }
+.poster picture { display: block; border: 3px solid var(--ink); border-radius: 22px; overflow: hidden; box-shadow: 0 6px 0 var(--ink); background: var(--peach); }
+.scroll-hint { display: inline-flex; flex-direction: column; align-items: center; margin: 14px 0 4px; color: var(--ink-soft); font-weight: 700; font-size: 14px; text-decoration: none; }
+.scroll-hint span { font-size: 22px; line-height: 1; animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* ── 공통 카드 ── */
+.card {
+  position: relative;
+  margin: 22px 16px 0;
+  padding: 24px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 28px;
+  background: var(--white);
+  box-shadow: 0 6px 0 var(--ink);
+}
+.card h2 {
+  margin: 0 0 14px;
+  font-family: var(--round);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.25;
+  text-align: center;
+}
+.card h2 mark { padding: 0 4px; background: linear-gradient(transparent 55%, var(--yellow) 55%); color: inherit; }
+.kicker { margin: 0 0 2px; text-align: center; font-weight: 700; color: var(--ink-soft); }
+.lead { margin: 14px 0 0; text-align: center; font-size: 17px; }
+.lead b { color: var(--pink-dark); }
+
+/* 14,000원 → 0원 */
+.plate { position: relative; margin: 4px -4px 0; }
+.plate picture { display: block; border-radius: 20px; overflow: hidden; }
+.stamp {
+  position: absolute; right: -6px; top: -10px;
+  display: grid; place-items: center;
+  width: 86px; height: 86px;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--white);
+  font-family: var(--round);
+  font-size: 26px; line-height: 1;
+  box-shadow: 0 4px 0 var(--pink-dark), 0 8px 16px rgba(59,33,22,.25);
+  transform: rotate(12deg);
+}
+.price { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; font-family: var(--round); }
+.price s { position: relative; font-size: 26px; color: var(--ink-soft); text-decoration: none; }
+.price s::after { content: ''; position: absolute; left: -4px; right: -4px; top: 52%; height: 4px; border-radius: 4px; background: var(--pink); transform-origin: left; }
+.price .arrow { font-size: 26px; color: var(--ink-soft); }
+.price strong { font-weight: 400; font-size: 54px; line-height: 1; color: var(--pink); }
+.js .value .price s::after { transform: scaleX(0); transition: transform .5s .3s ease-out; }
+.js .value.in .price s::after { transform: scaleX(1); }
+.js .value .price strong { display: inline-block; transform: scale(.4); opacity: 0; transition: transform .45s .8s cubic-bezier(.3,1.8,.5,1), opacity .2s .8s; }
+.js .value.in .price strong { transform: none; opacity: 1; }
+.chip { display: block; width: fit-content; margin: 14px auto 0; padding: 6px 14px; border-radius: 999px; background: var(--ink); color: var(--white); font-weight: 700; font-size: 15px; }
+
+/* 3단계 */
+.steps { list-style: none; margin: 0; padding: 0; }
+.step {
+  position: relative;
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 14px 14px 12px;
+  border: 2.5px solid var(--ink);
+  border-radius: 20px;
+  background: var(--cream);
+}
+.step + .step { margin-top: 30px; }
+.step + .step::before {
+  content: '▼';
+  position: absolute; top: -27px; left: 50%;
+  transform: translateX(-50%);
+  color: var(--pink); font-size: 16px; line-height: 1;
+}
+.step__no {
+  flex: none;
+  display: grid; place-items: center;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--white);
+  font-family: var(--round);
+  font-size: 24px;
+  box-shadow: 0 3px 0 var(--pink-dark);
+}
+.step h3 { margin: 2px 0 4px; font-family: var(--round); font-weight: 400; font-size: 21px; line-height: 1.3; }
+.step h3 em { font-style: normal; color: var(--pink); }
+.step p { margin: 0; font-size: 15.5px; }
+.step p small { display: block; margin-top: 2px; color: var(--ink-soft); font-size: 13px; }
+
+/* 콤보 */
+.combo { background: linear-gradient(180deg, #FFFDF5 0%, var(--yellow-soft) 100%); }
+.track { margin: 4px 0 0; }
+.node {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  border: 2.5px solid var(--ink);
+  border-radius: 18px;
+  background: var(--white);
+}
+.node .ico { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--yellow); font-size: 24px; }
+.node b { font-family: var(--round); font-weight: 400; font-size: 20px; }
+.node i { margin-left: auto; padding: 3px 10px; border-radius: 999px; background: var(--pink); color: var(--white); font-family: var(--round); font-style: normal; white-space: nowrap; transform: rotate(-4deg); }
+.node.c1 i { font-size: 15px; }
+.node.c2 i { font-size: 18px; }
+.node.c3 i { font-size: 21px; background: var(--pink-dark); }
+.node.inf { background: var(--ink); color: var(--white); }
+.node.inf .ico { background: var(--pink); }
+.node.inf b { color: var(--yellow); }
+.link { display: flex; align-items: center; height: 40px; margin-left: 33px; padding-left: 16px; border-left: 4px dashed var(--pink); font-size: 13px; font-weight: 900; color: var(--pink-dark); }
+.js .track .node, .js .track .link { opacity: 0; transform: translateY(14px) scale(.96); }
+.js .track.in .node, .js .track.in .link { animation: pop .45s cubic-bezier(.3,1.5,.5,1) both; animation-delay: calc(var(--i) * .18s); }
+@keyframes pop { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+
+.vs { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 6px; margin-top: 24px; text-align: center; }
+.vs__side { display: flex; flex-direction: column; align-items: center; }
+.vs__side .face { display: grid; place-items: center; width: 82px; height: 82px; border: 3px solid var(--ink); border-radius: 50%; background: var(--white); font-size: 40px; }
+.vs__side img { width: 96px; height: auto; margin-bottom: -6px; }
+.vs__side b { margin-top: 6px; font-family: var(--round); font-weight: 400; font-size: 18px; }
+.vs__side small { font-size: 13px; font-weight: 700; color: var(--ink-soft); line-height: 1.35; }
+.vs__mid { align-self: center; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--pink); color: var(--white); font-family: var(--round); font-size: 22px; box-shadow: 0 4px 0 var(--pink-dark); transform: rotate(-8deg); }
+.vs__q { margin: 16px 0 0; text-align: center; font-family: var(--round); font-size: 22px; }
+
+/* 마감일 계산기 */
+.calc { background: var(--yellow); }
+.calc .card-sub { margin: -6px 0 14px; text-align: center; font-weight: 700; font-size: 14px; color: var(--ink-soft); }
+.field { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2.5px solid var(--ink); border-radius: 16px; background: var(--white); }
+.field span { flex: none; font-weight: 900; }
+.field input {
+  flex: 1; min-width: 0;
+  padding: 6px 8px;
+  border: 0; border-radius: 10px;
+  background: var(--cream);
+  color: var(--ink);
+  font: 700 18px var(--body);
+}
+.result { margin-top: 14px; padding: 16px 14px; border: 2.5px dashed var(--ink); border-radius: 18px; background: rgba(255, 255, 255, .7); text-align: center; }
+.result p { margin: 0; }
+.result .deadline { font-family: var(--round); font-size: 30px; line-height: 1.2; color: var(--pink-dark); }
+.result .deadline small { font-size: 20px; color: var(--ink); }
+.result .gain { margin-top: 4px; font-weight: 900; font-size: 17px; }
+.result .warn { margin-top: 8px; font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+.result.is-early .deadline { font-size: 20px; color: var(--ink); }
+
+/* 깨알 규칙 */
+.rules ul { list-style: none; margin: 0; padding: 0; }
+.rules li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 2px dashed rgba(59, 33, 22, .18); font-size: 15.5px; }
+.rules li:first-child { border-top: 0; padding-top: 2px; }
+.rules .ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--cream); font-size: 20px; }
+.rules b { color: var(--pink-dark); }
+
+/* 예약·공유 */
+.cta { margin-top: 56px; padding-top: 58px; background: linear-gradient(180deg, #FFF0F4 0%, var(--white) 70%); text-align: center; }
+.cta .pig { position: absolute; left: 50%; top: -64px; width: 112px; transform: translateX(-50%) rotate(-4deg); filter: drop-shadow(0 4px 0 rgba(59,33,22,.25)); }
+.cta p { margin: 0 0 18px; font-weight: 700; color: var(--ink-soft); }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; min-height: 60px;
+  margin: 0 0 14px;
+  padding: 0 18px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  font: 400 21px/1.2 var(--round);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .08s, box-shadow .08s;
+}
+.btn:active { transform: translateY(4px); }
+.btn--book { background: var(--pink); color: var(--white); box-shadow: 0 6px 0 var(--ink); }
+.btn--book:active { box-shadow: 0 2px 0 var(--ink); }
+.btn--share { background: var(--kakao); color: var(--kakao-ink); box-shadow: 0 6px 0 var(--ink); }
+.btn--share:active { box-shadow: 0 2px 0 var(--ink); }
+.btn svg { flex: none; width: 24px; height: 24px; }
+.btn:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+.fine { margin: 6px 0 0 !important; font-size: 12px; font-weight: 400 !important; color: var(--ink-soft); }
+.foot { margin: 22px 16px 0; text-align: center; font-size: 12px; color: var(--ink-soft); }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom));
+  z-index: 10;
+  width: max-content; max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--white);
+  font-weight: 700; font-size: 15px; text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  opacity: 0; transform: translate(-50%, 12px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* 스크롤하면 하나씩 등장 */
+.js .reveal { opacity: 0; transform: translateY(30px); transition: opacity .6s ease-out, transform .6s cubic-bezier(.2,.8,.3,1); }
+.js .reveal.in { opacity: 1; transform: none; }
+.js .steps .reveal:nth-child(2) { transition-delay: .08s; }
+.js .steps .reveal:nth-child(3) { transition-delay: .16s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal, .js .track .node, .js .track .link, .js .value .price strong { opacity: 1; transform: none; transition: none; animation: none; }
+  .js .value .price s::after { transform: scaleX(1); transition: none; }
+  .scroll-hint span, .tile b.bump { animation: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <span class="spark s1" aria-hidden="true">✦</span>
+    <span class="spark s2" aria-hidden="true">✦</span>
+    <span class="spark s3" aria-hidden="true">✦</span>
+    <span class="spark s4" aria-hidden="true">✦</span>
+    <span class="badge">아스타나키즈 재방문 이벤트</span>
+    <h1 class="outline"><span class="t1">재방문 돈까스</span><span class="t2">무한 득템</span></h1>
+    <p class="hero__sub">오면 올수록 돈까스가 <mark>공짜!</mark><br>역대급 무한 리필(?) 혜택</p>
+
+    <section class="countdown" id="countdown" aria-label="이벤트 시작 카운트다운">
+      <div class="countdown__head">
+        <span class="countdown__label" id="cdLabel"><em>10월 26일(월)</em> 도전 시작까지</span>
+        <span class="viewers" id="viewers" title="이 소식을 본 사람 수"><span aria-hidden="true">👀</span><span class="viewers__num" id="viewersNum">00000</span><span class="viewers__unit">명이 봤어요</span></span>
+      </div>
+      <div class="tiles" role="timer" aria-live="off">
+        <div class="tile"><b id="cdD">00</b><small>일</small></div>
+        <div class="tile"><b id="cdH">00</b><small>시간</small></div>
+        <div class="tile"><b id="cdM">00</b><small>분</small></div>
+        <div class="tile"><b id="cdS">00</b><small>초</small></div>
+      </div>
+      <div class="live" id="cdLive">
+        <span class="live__day" id="liveDay">D+1일째</span>
+        <p>오늘 첫 방문하면 <strong id="liveDeadline"></strong>까지<br>다시 오면 돈까스 득템!</p>
+      </div>
+    </section>
+
+    <figure class="poster">
+      <picture>
+        <source srcset="img/poster.webp" type="image/webp">
+        <img src="img/poster.jpg" width="1080" height="608" fetchpriority="high"
+             alt="20일 안에 재방문하면 돈까스가 계속?!!! 자주 방문하면 올 때마다 득템!! — 돈까스 위에 '10월 26일 도전시작' 포스트잇">
+      </picture>
+    </figure>
+    <a class="scroll-hint" href="#value">아래로 쓱~ 내려서 득템 방법 보기<span aria-hidden="true">↓</span></a>
+  </header>
+
+  <main>
+    <section class="card value reveal" id="value">
+      <p class="kicker">바삭바삭~ 그 유명한</p>
+      <h2>아스타나 <mark>수제 돈까스</mark></h2>
+      <div class="plate">
+        <picture>
+          <source srcset="img/plate.webp" type="image/webp">
+          <img src="img/plate.jpg" width="618" height="428" loading="lazy" alt="소스를 듬뿍 올린 수제 돈까스와 밥, 양배추 샐러드, 옥수수 한 접시">
+        </picture>
+        <span class="stamp" aria-hidden="true">공짜!</span>
+      </div>
+      <div class="price" aria-label="14,000원짜리 돈까스가 0원">
+        <s>14,000원</s><span class="arrow" aria-hidden="true">→</span><strong>0원</strong>
+      </div>
+      <p class="lead">한돈 생육으로 직접 만든 수제 돈까스,<br><b>계속 공짜로</b> 즐기는 방법 알려드려요!</p>
+      <span class="chip">안 오면 그냥 손해 😭</span>
+    </section>
+
+    <section class="card how" aria-labelledby="howTitle">
+      <h2 id="howTitle">💡 도전 방법, 딱 3단계</h2>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step__no">1</span>
+          <div>
+            <h3>10월 26일 이후 <em>첫 방문</em></h3>
+            <p>누구나 도전 시작! 입장권에 <b>마감일(+20일)</b>이 찍혀 나와요 🎟️</p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step__no">2</span>
+          <div>
+            <h3><em>20일 안에</em> 한 번 더 방문</h3>
+            <p>돈까스 <b>1접시 득템!</b> 🍽️<small>첫 방문일을 포함해 딱 3주</small></p>
+          </div>
+        </li>
+        <li class="step reveal">
+          <span class="step__no">3</span>
+          <div>
+            <h3>득템한 날 = <em>새 도전 시작</em></h3>
+            <p>그날부터 또 20일 안에 오면 <b>또 득템!</b> 이게 무한 반복 ♾️</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="card combo" aria-labelledby="comboTitle">
+      <h2 id="comboTitle">이제부터 고객님의<br><mark>무한 방문 콤보</mark> 공격!!</h2>
+      <div class="track reveal" id="track">
+        <div class="node" style="--i:0"><span class="ico" aria-hidden="true">🎟️</span><b>첫 방문</b></div>
+        <div class="link" style="--i:1">20일 안에 다시!</div>
+        <div class="node c1" style="--i:2"><span class="ico" aria-hidden="true">🍽️</span><b>득템!</b><i>COMBO 1</i></div>
+        <div class="link" style="--i:3">그날부터 20일 안에!</div>
+        <div class="node c2" style="--i:4"><span class="ico" aria-hidden="true">🍽️</span><b>또 득템!</b><i>COMBO 2</i></div>
+        <div class="link" style="--i:5">또 20일 안에!</div>
+        <div class="node c3" style="--i:6"><span class="ico" aria-hidden="true">🍽️</span><b>또또 득템!</b><i>COMBO 3</i></div>
+        <div class="link" style="--i:7">계속~</div>
+        <div class="node inf" style="--i:8"><span class="ico" aria-hidden="true">♾️</span><b>무한 반복 득템</b></div>
+      </div>
+      <div class="vs reveal">
+        <div class="vs__side">
+          <span class="face" aria-hidden="true">👨‍👩‍👧</span>
+          <b>고객님</b>
+          <small>방문 콤보</small>
+        </div>
+        <div class="vs__mid">VS</div>
+        <div class="vs__side">
+          <picture>
+            <source srcset="img/pig.webp" type="image/webp">
+            <img src="img/pig.png" width="251" height="267" loading="lazy" alt="요리사 모자를 쓴 돼지 캐릭터">
+          </picture>
+          <b>아스타나</b>
+          <small>돈까스 튀기기<br>스피드</small>
+        </div>
+      </div>
+      <p class="vs__q">과연 승자는???? 🤔</p>
+    </section>
+
+    <section class="card calc reveal" aria-labelledby="calcTitle">
+      <h2 id="calcTitle">⏰ 내 득템 마감일은?</h2>
+      <p class="card-sub">방문한 날을 고르면 마감일을 알려드려요</p>
+      <label class="field">
+        <span>방문한 날</span>
+        <input type="date" id="visitDate" min="2026-10-26" value="2026-10-26">
+      </label>
+      <div class="result" id="calcResult" aria-live="polite">
+        <p class="deadline" id="deadline">11월 15일(일)<small>까지</small></p>
+        <p class="gain" id="gain">다시 오면 돈까스 1접시 득템! 🍽️</p>
+        <p class="warn" id="warn">하루라도 넘기면 콤보 리셋 😱</p>
+      </div>
+    </section>
+
+    <section class="card rules reveal" aria-labelledby="rulesTitle">
+      <h2 id="rulesTitle">📌 놓치면 아까운 깨알 규칙</h2>
+      <ul>
+        <li><span class="ico" aria-hidden="true">🗓️</span><div><b>10월 25일까지</b>의 방문은 지금처럼 마일리지 적립! 도전은 아직 시작 전이에요</div></li>
+        <li><span class="ico" aria-hidden="true">⏸️</span><div><b>10월 26일부터</b>는 마일리지 적립이 잠시 멈추고, 돈까스 도전이 시작돼요</div></li>
+        <li><span class="ico" aria-hidden="true">🔁</span><div><b>21일 이상</b> 훌쩍 지나서 오시면 콤보 리셋! 그날이 다시 첫 방문이 돼요</div></li>
+        <li><span class="ico" aria-hidden="true">🍽️</span><div><b>사은 음식</b> 한돈 생육으로 직접 만든 수제 돈까스 1접시 (14,000원)</div></li>
+      </ul>
+    </section>
+
+    <section class="card cta reveal" aria-labelledby="ctaTitle">
+      <picture>
+        <source srcset="img/pig.webp" type="image/webp">
+        <img class="pig" src="img/pig.png" width="251" height="267" loading="lazy" alt="">
+      </picture>
+      <h2 id="ctaTitle">콤보는 <mark>첫 방문</mark>부터!</h2>
+      <p id="ctaText">10월 26일, 첫 방문을 예약하고 도전을 시작하세요</p>
+      <a class="btn btn--book" href="https://m.booking.naver.com/booking/12/bizes/653244?theme=place&amp;entry=pll&amp;lang=ko">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        예약하기
+      </a>
+      <button class="btn btn--share" id="shareBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5C6.75 3.5 2.5 6.86 2.5 11c0 2.65 1.74 4.98 4.37 6.32l-.9 3.3c-.08.3.26.54.52.37l3.92-2.6c.52.07 1.05.11 1.59.11 5.25 0 9.5-3.36 9.5-7.5S17.25 3.5 12 3.5z" fill="currentColor"/></svg>
+        친구에게 소식 공유하기
+      </button>
+      <p class="fine">이미지는 실제와 다를 수 있습니다.</p>
+    </section>
+  </main>
+
+  <p class="foot">© 아스타나키즈</p>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ── 설정 ── */
+  const START = Date.UTC(2026, 9, 25, 15, 0, 0);   // 2026-10-26 00:00 (한국 시간)
+  const WINDOW_DAYS = 20;                          // 방문일 + 20일까지 다시 오면 득템
+  const PAGE_URL = 'https://gnb21c-cmd.github.io/event/donkatsu/';
+  const OG_IMAGE = 'https://gnb21c-cmd.github.io/event/donkatsu/img/og.jpg';
+  const SHARE_TITLE = '아스타나키즈 재방문 돈까스 무한 득템!';
+  const SHARE_TEXT = '오면 올수록 돈까스가 공짜! 10월 26일부터 20일 안에 다시 오면 수제 돈까스 1접시 득템, 무한 반복 🎉';
+  // 방문자 수: 무료 집계 서비스 Abacus (https://jasoncameron.dev/abacus/)
+  const COUNTER_URL = 'https://abacus.jasoncameron.dev';
+  const COUNTER_NS = 'gnb21c-event';
+  const COUNTER_KEY = 'donkatsu-2026';
+  const SEEN = 'astana_donkatsu_seen';
+  // 카카오 개발자 앱의 JavaScript 키를 넣으면 카카오톡 공유 창이 바로 열려요. 비워 두면 휴대폰 공유 메뉴를 씁니다.
+  const KAKAO_JS_KEY = '';
+  const KAKAO_SDK = 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js';
+
+  const DAY = 864e5, KST = 9 * 36e5;
+  const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+  const $ = (id) => document.getElementById(id);
+  const pad = (n, len = 2) => String(n).padStart(len, '0');
+  const kstDay = (t) => Math.floor((t + KST) / DAY);              // 한국 날짜 번호
+  const isoDay = (d) => new Date(d * DAY).toISOString().slice(0, 10);
+  const label = (d) => { const x = new Date(d * DAY); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일(${WEEK[x.getUTCDay()]})`; };
+  const START_DAY = kstDay(START);
+  const reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── 카운트다운 ── */
+  const setNum = (id, v) => {
+    const el = $(id);
+    if (el.textContent === v) return;
+    el.textContent = v;
+    if (reduceMotion) return;
+    el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
+  };
+  let timer = 0;
+  function tick() {
+    const now = Date.now();
+    const left = START - now;
+    if (left > 0) {
+      const s = Math.floor(left / 1000);
+      setNum('cdD', pad(Math.floor(s / 86400)));
+      setNum('cdH', pad(Math.floor((s % 86400) / 3600)));
+      setNum('cdM', pad(Math.floor((s % 3600) / 60)));
+      setNum('cdS', pad(s % 60));
+      return;
+    }
+    const today = kstDay(now);
+    document.documentElement.classList.add('is-live');
+    $('cdLabel').innerHTML = '🔥 <em>도전 진행 중!</em>';
+    $('liveDay').textContent = `D+${today - START_DAY + 1}일째`;
+    $('liveDeadline').textContent = label(today + WINDOW_DAYS);
+    $('ctaText').textContent = '놓치면 손해! 오늘 예약하고 콤보를 시작하세요';
+  }
+  tick();
+  timer = setInterval(tick, 1000);
+
+  /* ── 본 사람 수 (같은 휴대폰·브라우저는 한 번만) ── */
+  function markSeen() {
+    try { localStorage.setItem(SEEN, '1'); } catch (e) { /* 저장 금지된 브라우저 */ }
+    document.cookie = `${SEEN}=1; max-age=31536000; path=/; SameSite=Lax`;
+  }
+  function wasSeen() {
+    try { if (localStorage.getItem(SEEN) === '1') return true; } catch (e) { /* 무시 */ }
+    return document.cookie.split('; ').includes(`${SEEN}=1`);
+  }
+  function roll(el, target) {
+    if (reduceMotion || target === 0) { el.textContent = pad(target, 5); return; }
+    const t0 = performance.now(), dur = 1200;
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      el.textContent = pad(Math.round(target * (1 - Math.pow(1 - p, 3))), 5);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  (function countViewer() {
+    const box = $('viewers');
+    const bot = navigator.webdriver || /bot|crawl|spider|slurp|facebookexternalhit|kakaotalk-scrap/i.test(navigator.userAgent);
+    const test = new URLSearchParams(location.search).has('test');
+    const mode = wasSeen() || bot || test ? 'get' : 'hit';
+    fetch(`${COUNTER_URL}/${mode}/${COUNTER_NS}/${COUNTER_KEY}`, { cache: 'no-store' })
+      .then((r) => (r.status === 404 ? { value: 0 } : r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then((d) => {
+        if (mode === 'hit') markSeen();
+        box.classList.add('is-ready');
+        roll($('viewersNum'), Math.max(0, Number(d.value) || 0));
+      })
+      .catch(() => box.classList.add('is-off'));
+  })();
+
+  /* ── 마감일 계산기 ── */
+  const input = $('visitDate');
+  input.min = isoDay(START_DAY);
+  input.value = isoDay(Math.max(kstDay(Date.now()), START_DAY));
+  function calc() {
+    if (!input.value) return;
+    const day = Math.floor(Date.parse(`${input.value}T00:00:00Z`) / DAY);
+    const box = $('calcResult');
+    if (day < START_DAY) {
+      box.classList.add('is-early');
+      $('deadline').textContent = '10월 25일까지는 마일리지 적립 기간이에요';
+      $('gain').textContent = '돈까스 도전은 10월 26일 첫 방문부터 시작!';
+      $('warn').textContent = '';
+      return;
+    }
+    box.classList.remove('is-early');
+    $('deadline').innerHTML = `${label(day + WINDOW_DAYS)}<small>까지</small>`;
+    $('gain').textContent = '다시 오면 돈까스 1접시 득템! 🍽️';
+    $('warn').textContent = '하루라도 넘기면 콤보 리셋 😱';
+  }
+  input.addEventListener('input', calc);
+  input.addEventListener('change', calc);
+  calc();
+
+  /* ── 스크롤하면 하나씩 등장 ── */
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduceMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0, rootMargin: '0px 0px -3% 0px' });
+    items.forEach((el) => io.observe(el));
+  } else {
+    items.forEach((el) => el.classList.add('in'));
+  }
+
+  /* ── 친구에게 공유 ── */
+  let toastTimer = 0;
+  function toast(msg) {
+    const el = $('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+  }
+  async function copyLink() {
+    let ok = false;
+    try { await navigator.clipboard.writeText(PAGE_URL); ok = true; } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = PAGE_URL; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
+      ta.remove();
+    }
+    toast(ok ? '링크를 복사했어요! 카카오톡 대화방에 붙여넣기 해주세요 💬' : `이 주소를 친구에게 보내주세요: ${PAGE_URL}`);
+  }
+  if (KAKAO_JS_KEY) {
+    const s = document.createElement('script');
+    s.src = KAKAO_SDK; s.crossOrigin = 'anonymous'; s.async = true;
+    s.onload = () => { try { if (!window.Kakao.isInitialized()) window.Kakao.init(KAKAO_JS_KEY); } catch (e) { /* 키 오류면 기본 공유 */ } };
+    document.head.appendChild(s);
+  }
+  $('shareBtn').addEventListener('click', async () => {
+    const K = window.Kakao;
+    if (KAKAO_JS_KEY && K && K.isInitialized && K.isInitialized()) {
+      try {
+        K.Share.sendDefault({
+          objectType: 'feed',
+          content: { title: SHARE_TITLE, description: SHARE_TEXT, imageUrl: OG_IMAGE, link: { mobileWebUrl: PAGE_URL, webUrl: PAGE_URL } },
+          buttons: [{ title: '이벤트 보기', link: { mobileWebUrl: PAGE_URL, webUrl: PAGE_URL } }],
+        });
+        return;
+      } catch (e) { /* 아래 방법으로 */ }
+    }
+    if (navigator.share) {
+      try { await navigator.share({ title: SHARE_TITLE, text: SHARE_TEXT, url: PAGE_URL }); return; }
+      catch (e) { if (e && e.name === 'AbortError') return; }
+    }
+    copyLink();
+  });
+})();
+</script>
+</body>
+</html>
