@@ -4,7 +4,7 @@
 
 | 이벤트 | 주소 | QR |
 |---|---|---|
-| 재방문 돈까스 무한 득템 (2026-10-26~) | https://gnb21c-cmd.github.io/event/donkatsu/ | `qr/donkatsu.png` |
+| 재방문 돈까스 무한 득템 (2026-10-26~) | https://gnb21c-cmd.github.io/event/donkatsu/ | `qr/donkatsu.png` (QR만), `qr/donkatsu-card.png` / `.pdf` (인쇄용 카드, A6 105×148mm) |
 
 `https://gnb21c-cmd.github.io/event/` 로 들어와도 지금 이벤트로 넘어갑니다.
 
