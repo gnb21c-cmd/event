@@ -155,10 +155,12 @@ b, strong { font-weight: 900; }
 .live p { margin: 0; }
 .live .live__day { display: inline-block; margin-bottom: 6px; padding: 2px 10px; border-radius: 999px; background: var(--pink); color: var(--white); font-family: var(--round); font-weight: 400; font-size: 15px; }
 .live strong { color: var(--pink-dark); }
+.mileage-note { margin: 12px 0 0; padding: 8px 10px; border-radius: 12px; background: var(--cream); font-size: 13.5px; font-weight: 700; line-height: 1.45; text-align: center; }
 .is-live .tiles { display: none; }
 .is-live .live { display: block; }
 
 .poster { margin: 0 0 6px; }
+html:not(.js) .poster picture { display: none; }
 .poster picture { display: block; border: 3px solid var(--ink); border-radius: 22px; overflow: hidden; box-shadow: 0 6px 0 var(--ink); background: var(--peach); }
 .scroll-hint { display: inline-flex; flex-direction: column; align-items: center; margin: 14px 0 4px; color: var(--ink-soft); font-weight: 700; font-size: 14px; text-decoration: none; }
 .scroll-hint span { font-size: 22px; line-height: 1; animation: nudge 1.4s ease-in-out infinite; }
@@ -280,9 +282,9 @@ b, strong { font-weight: 900; }
 .vs__mid { align-self: center; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--pink); color: var(--white); font-family: var(--round); font-size: 22px; box-shadow: 0 4px 0 var(--pink-dark); transform: rotate(-8deg); }
 .vs__q { margin: 16px 0 0; text-align: center; font-family: var(--round); font-size: 22px; }
 
-/* 마감일 계산기 */
+/* 재방문 기한일 계산기 */
 .calc { background: var(--yellow); }
-.calc .card-sub { margin: -6px 0 14px; text-align: center; font-weight: 700; font-size: 14px; color: var(--ink-soft); }
+.calc .card-sub { margin: -6px 0 14px; text-align: center; font-weight: 700; font-size: 14px; color: var(--ink-soft); text-wrap: balance; }
 .field { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 2.5px solid var(--ink); border-radius: 16px; background: var(--white); }
 .field span { flex: none; font-weight: 900; }
 .field input {
@@ -307,6 +309,7 @@ b, strong { font-weight: 900; }
 .rules li:first-child { border-top: 0; padding-top: 2px; }
 .rules .ico { flex: none; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--cream); font-size: 20px; }
 .rules b { color: var(--pink-dark); }
+.rules .rule-sub { display: block; margin-top: 6px; padding: 6px 10px; border-radius: 10px; background: var(--yellow-soft); font-size: 14.5px; font-weight: 700; }
 
 /* 예약·공유 */
 .cta { margin-top: 56px; padding-top: 58px; background: linear-gradient(180deg, #FFF0F4 0%, var(--white) 70%); text-align: center; }
@@ -379,7 +382,7 @@ b, strong { font-weight: 900; }
 
     <section class="countdown" id="countdown" aria-label="이벤트 시작 카운트다운">
       <div class="countdown__head">
-        <span class="countdown__label" id="cdLabel"><em>10월 26일(월)</em> 도전 시작까지</span>
+        <span class="countdown__label" id="cdLabel"><em>10월 26일(월) 오전 10시</em><br>도전 시작까지</span>
         <span class="viewers" id="viewers" title="이 소식을 본 사람 수"><span aria-hidden="true">👀</span><span class="viewers__num" id="viewersNum">00000</span><span class="viewers__unit">명이 봤어요</span></span>
       </div>
       <div class="tiles" role="timer" aria-live="off">
@@ -392,15 +395,30 @@ b, strong { font-weight: 900; }
         <span class="live__day" id="liveDay">D+1일째</span>
         <p>오늘 첫 방문하면 <strong id="liveDeadline"></strong>까지<br>다시 오면 돈까스 득템!</p>
       </div>
+      <p class="mileage-note"><span aria-hidden="true">⏸️</span> 이벤트 기간 마일리지는<br>누적 카운트되지 않습니다.</p>
     </section>
 
     <figure class="poster">
       <picture>
-        <source srcset="img/poster.webp" type="image/webp">
-        <img src="img/poster.jpg" width="1080" height="608" fetchpriority="high"
-             alt="20일 안에 재방문하면 돈까스가 계속?!!! 자주 방문하면 올 때마다 득템!! — 돈까스 위에 '10월 26일 도전시작' 포스트잇">
+        <source id="posterSrc" type="image/webp">
+        <img id="posterImg" width="1080" height="608" fetchpriority="high" alt="">
       </picture>
+      <noscript><img src="img/poster.jpg" width="1080" height="608" alt="20일 안에 재방문하면 돈까스가 계속?!!! 자주 방문하면 올 때마다 득템!!"></noscript>
     </figure>
+    <script>
+      // 10월 26일 오전 9시(한국 시간)부터는 포스트잇 없는 원본 이미지 (그 전에는 '10월 26일 도전시작' 포스트잇)
+      window.POSTER_SWAP = Date.UTC(2026, 9, 26, 0, 0, 0);
+      window.setPoster = function (now) {
+        var live = now >= window.POSTER_SWAP, v = live ? 'live' : 'postit';
+        var img = document.getElementById('posterImg');
+        if (img.getAttribute('data-v') === v) return;
+        document.getElementById('posterSrc').srcset = live ? 'img/poster.webp' : 'img/poster-postit.webp';
+        img.src = live ? 'img/poster.jpg' : 'img/poster-postit.jpg';
+        img.alt = live ? "20일 안에 재방문하면 돈까스가 계속?!!! 자주 방문하면 올 때마다 득템!!" : "20일 안에 재방문하면 돈까스가 계속?!!! 자주 방문하면 올 때마다 득템!! — 돈까스 위에 '10월 26일 도전시작' 포스트잇";
+        img.setAttribute('data-v', v);
+      };
+      window.setPoster(Date.now());
+    </script>
     <a class="scroll-hint" href="#value">아래로 쓱~ 내려서 득템 방법 보기<span aria-hidden="true">↓</span></a>
   </header>
 
@@ -429,7 +447,7 @@ b, strong { font-weight: 900; }
           <span class="step__no">1</span>
           <div>
             <h3>10월 26일 이후 <em>첫 방문</em></h3>
-            <p>누구나 도전 시작! 입장권에 <b>마감일(+20일)</b>이 찍혀 나와요 🎟️</p>
+            <p>누구나 도전 시작! 입장권에 <b>득템 가능한 재방문 기한일(+20일)</b>이 찍혀 나와요 🎟️</p>
           </div>
         </li>
         <li class="step reveal">
@@ -482,8 +500,8 @@ b, strong { font-weight: 900; }
     </section>
 
     <section class="card calc reveal" aria-labelledby="calcTitle">
-      <h2 id="calcTitle">⏰ 내 득템 마감일은?</h2>
-      <p class="card-sub">방문한 날을 고르면 마감일을 알려드려요</p>
+      <h2 id="calcTitle">⏰ 내 재방문 기한일은?</h2>
+      <p class="card-sub">방문한 날을 고르면 득템 가능한 재방문 기한일을 알려드려요</p>
       <label class="field">
         <span>방문한 날</span>
         <input type="date" id="visitDate" min="2026-10-26" value="2026-10-26">
@@ -498,7 +516,7 @@ b, strong { font-weight: 900; }
     <section class="card rules reveal" aria-labelledby="rulesTitle">
       <h2 id="rulesTitle">📌 놓치면 아까운 깨알 규칙</h2>
       <ul>
-        <li><span class="ico" aria-hidden="true">🗓️</span><div><b>10월 25일까지</b>의 방문은 지금처럼 마일리지 적립! 도전은 아직 시작 전이에요</div></li>
+        <li><span class="ico" aria-hidden="true">🗓️</span><div><b>10월 25일까지</b>의 방문은 지금처럼 마일리지 적립! 도전을 위한 첫 기준 방문일은 아직 시작 전이에요<span class="rule-sub">이벤트가 종료된 뒤 이용완료 마일리지 적립이 재개됩니다.</span></div></li>
         <li><span class="ico" aria-hidden="true">⏸️</span><div><b>10월 26일부터</b>는 마일리지 적립이 잠시 멈추고, 돈까스 도전이 시작돼요</div></li>
         <li><span class="ico" aria-hidden="true">🔁</span><div><b>21일 이상</b> 훌쩍 지나서 오시면 콤보 리셋! 그날이 다시 첫 방문이 돼요</div></li>
         <li><span class="ico" aria-hidden="true">🍽️</span><div><b>사은 음식</b> 한돈 생육으로 직접 만든 수제 돈까스 1접시 (14,000원)</div></li>
@@ -533,7 +551,7 @@ b, strong { font-weight: 900; }
   'use strict';
 
   /* ── 설정 ── */
-  const START = Date.UTC(2026, 9, 25, 15, 0, 0);   // 2026-10-26 00:00 (한국 시간)
+  const START = Date.UTC(2026, 9, 26, 1, 0, 0);    // 2026-10-26 오전 10:00 (한국 시간) 도전 시작
   const WINDOW_DAYS = 20;                          // 방문일 + 20일까지 다시 오면 득템
   const PAGE_URL = 'https://gnb21c-cmd.github.io/event/donkatsu/';
   const OG_IMAGE = 'https://gnb21c-cmd.github.io/event/donkatsu/img/og.jpg';
@@ -585,8 +603,9 @@ b, strong { font-weight: 900; }
     $('liveDeadline').textContent = label(today + WINDOW_DAYS);
     $('ctaText').textContent = '놓치면 손해! 오늘 예약하고 콤보를 시작하세요';
   }
-  tick();
-  timer = setInterval(tick, 1000);
+  const tickAll = () => { tick(); window.setPoster(Date.now()); };
+  tickAll();
+  timer = setInterval(tickAll, 1000);
 
   /* ── 본 사람 수 (같은 휴대폰·브라우저는 한 번만) ── */
   function markSeen() {
@@ -622,7 +641,7 @@ b, strong { font-weight: 900; }
       .catch(() => box.classList.add('is-off'));
   })();
 
-  /* ── 마감일 계산기 ── */
+  /* ── 재방문 기한일 계산기 ── */
   const input = $('visitDate');
   input.min = isoDay(START_DAY);
   input.value = isoDay(Math.max(kstDay(Date.now()), START_DAY));
