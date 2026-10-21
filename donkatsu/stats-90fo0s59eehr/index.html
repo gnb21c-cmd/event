@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>본 사람 수 통계</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="재방문 돈까스 무한 득템 이벤트 페이지를 날짜별로 몇 명이 봤는지">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f6f4ef;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, .10);
+  --wash: rgba(11, 11, 11, .05);
+  --s1: #2a78d6;           /* 처음 본 사람 */
+  --s2: #eb6834;           /* 다시 본 사람 */
+  --accent: #F0185C;
+  --btn: #ecebe6;
+  --tip: #ffffff;
+  --shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, .10);
+    --wash: rgba(255, 255, 255, .06);
+    --s1: #3987e5;
+    --s2: #d95926;
+    --btn: #2a2a28;
+    --tip: #242423;
+    --shadow: 0 8px 24px rgba(0, 0, 0, .5);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255, 255, 255, .10); --wash: rgba(255, 255, 255, .06);
+  --s1: #3987e5; --s2: #d95926; --btn: #2a2a28; --tip: #242423; --shadow: 0 8px 24px rgba(0, 0, 0, .5);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: 'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 20px 16px calc(32px + env(safe-area-inset-bottom)); }
+
+header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 8px 12px; margin-bottom: 16px; }
+.eyebrow { margin: 0; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.eyebrow i { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+h1 { margin: 2px 0 0; font-size: 24px; font-weight: 900; letter-spacing: -.3px; }
+.head-side { display: flex; align-items: center; gap: 10px; }
+.updated { margin: 0; font-size: 12px; color: var(--muted); }
+button { font: inherit; color: inherit; }
+.btn {
+  min-height: 36px; padding: 0 14px;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--btn); font-size: 14px; font-weight: 700;
+  cursor: pointer;
+}
+.btn:focus-visible, .seg button:focus-visible, .hit:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+
+/* 숫자 칸 */
+.kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.stat { padding: 14px 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+.stat.hero { grid-column: 1 / -1; }
+.stat .label { display: block; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.stat .value { display: block; margin-top: 2px; font-size: 30px; font-weight: 900; line-height: 1.15; }
+.stat.hero .value { font-size: 52px; letter-spacing: -1px; }
+.stat .value small { margin-left: 3px; font-size: .45em; font-weight: 700; color: var(--ink-2); letter-spacing: 0; }
+.stat .note { display: block; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
+@media (min-width: 560px) {
+  .kpis { grid-template-columns: 1.4fr 1fr 1fr; }
+  .stat.hero { grid-column: auto; }
+}
+
+/* 기간 선택 */
+.filters { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.filters .lbl { font-size: 13px; font-weight: 700; color: var(--ink-2); }
+.seg { display: inline-flex; padding: 3px; border-radius: 12px; background: var(--btn); }
+.seg button { min-width: 52px; min-height: 32px; padding: 0 10px; border: 0; border-radius: 9px; background: transparent; font-size: 13.5px; font-weight: 700; color: var(--ink-2); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+/* 그래프 카드 */
+.card { position: relative; margin: 0; padding: 16px 16px 12px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
+.card h2 { margin: 0; font-size: 17px; font-weight: 900; }
+.card .sub { margin: 2px 0 10px; font-size: 13px; color: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 6px; padding: 0; list-style: none; font-size: 13px; color: var(--ink-2); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.legend .sw { width: 12px; height: 12px; border-radius: 3px; }
+.sw.s1 { background: var(--s1); } .sw.s2 { background: var(--s2); }
+.chart { position: relative; width: 100%; transition: opacity .2s; }
+.chart.is-loading { opacity: .5; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: inherit; }
+.tick { font-size: 11px; fill: var(--muted); font-variant-numeric: tabular-nums; }
+.dlabel { font-size: 11.5px; font-weight: 700; fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+.anno { font-size: 11px; font-weight: 700; fill: var(--muted); }
+.hit { fill: transparent; cursor: pointer; outline: none; }
+.hit.on { fill: var(--wash); }
+.empty { position: absolute; inset: 40px 0 30px; display: grid; place-items: center; text-align: center; font-size: 14px; color: var(--muted); pointer-events: none; }
+
+.tip {
+  position: absolute; z-index: 5;
+  min-width: 150px; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 12px;
+  background: var(--tip); box-shadow: var(--shadow);
+  font-size: 13px; pointer-events: none;
+}
+.tip .date { margin-bottom: 6px; font-weight: 700; color: var(--ink-2); }
+.tip .row { display: flex; align-items: center; gap: 8px; }
+.tip .row + .row { margin-top: 2px; }
+.tip .key { width: 12px; height: 2px; border-radius: 2px; }
+.tip .key.s1 { background: var(--s1); } .tip .key.s2 { background: var(--s2); } .tip .key.sum { background: transparent; }
+.tip b { min-width: 34px; font-weight: 900; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tip span { color: var(--ink-2); }
+.tip .row.total { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--grid); }
+
+.card-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 6px; }
+.status { margin: 0; font-size: 12.5px; color: var(--muted); }
+.status.err { color: #d03b3b; font-weight: 700; }
+table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 8px 6px; border-bottom: 1px solid var(--grid); text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
+td.sum { font-weight: 900; }
+
+.notes { margin-top: 18px; padding: 14px 16px; border-radius: 16px; background: var(--btn); font-size: 13.5px; color: var(--ink-2); }
+.notes h3 { margin: 0 0 6px; font-size: 14px; color: var(--ink); }
+.notes ul { margin: 0; padding-left: 18px; }
+.notes li + li { margin-top: 3px; }
+.notes a { color: var(--s1); font-weight: 700; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow"><i aria-hidden="true"></i>재방문 돈까스 무한 득템 · 이벤트 페이지</p>
+      <h1>본 사람 수</h1>
+    </div>
+    <div class="head-side">
+      <p class="updated" id="updated">불러오는 중…</p>
+      <button class="btn" id="refresh" type="button">새로고침</button>
+    </div>
+  </header>
+
+  <section class="kpis" aria-label="요약">
+    <div class="stat hero">
+      <span class="label">지금까지 본 사람</span>
+      <span class="value" id="kTotal">–</span>
+      <span class="note" id="kTotalNote"></span>
+    </div>
+    <div class="stat">
+      <span class="label">오늘 본 사람</span>
+      <span class="value" id="kToday">–</span>
+      <span class="note" id="kYesterday"></span>
+    </div>
+    <div class="stat">
+      <span class="label">오늘 처음 본 사람</span>
+      <span class="value" id="kNew">–</span>
+      <span class="note" id="kReturn"></span>
+    </div>
+  </section>
+
+  <div class="filters">
+    <span class="lbl" id="rangeLbl">기간</span>
+    <div class="seg" role="group" aria-labelledby="rangeLbl" id="range">
+      <button type="button" data-days="7">7일</button>
+      <button type="button" data-days="14">14일</button>
+      <button type="button" data-days="30">30일</button>
+      <button type="button" data-days="0">전체</button>
+    </div>
+  </div>
+
+  <figure class="card" aria-labelledby="chartTitle">
+    <h2 id="chartTitle">날짜별 본 사람</h2>
+    <p class="sub">처음 본 사람 + 다시 본 사람 = 그날 본 사람</p>
+    <ul class="legend">
+      <li><i class="sw s1" aria-hidden="true"></i>처음 본 사람</li>
+      <li><i class="sw s2" aria-hidden="true"></i>다시 본 사람</li>
+    </ul>
+    <div class="chart" id="chart"></div>
+    <div class="tip" id="tip" hidden></div>
+    <div class="card-foot">
+      <p class="status" id="status" role="status"></p>
+      <button class="btn" id="tableToggle" type="button" aria-expanded="false" aria-controls="tableWrap">표로 보기</button>
+    </div>
+    <div id="tableWrap" hidden>
+      <table>
+        <thead><tr><th scope="col">날짜</th><th scope="col">그날 본 사람</th><th scope="col">처음 본 사람</th><th scope="col">다시 본 사람</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </figure>
+
+  <section class="notes" aria-labelledby="notesTitle">
+    <h3 id="notesTitle">이렇게 셉니다</h3>
+    <ul>
+      <li><b>그날 본 사람</b>: 그날 이벤트 페이지를 연 휴대폰 브라우저 수예요. 같은 브라우저는 하루에 한 번만 셉니다.</li>
+      <li><b>처음 본 사람</b>: 이벤트 페이지를 처음 본 브라우저예요. '지금까지 본 사람'과 같은 기준입니다.</li>
+      <li><b>다시 본 사람</b>: 전에 본 적 있는 브라우저가 그날 다시 연 경우 (그날 본 사람 − 처음 본 사람).</li>
+      <li>같은 사람이라도 카메라(기본 브라우저)와 카카오톡 안 브라우저로 각각 열면 따로 셉니다.</li>
+      <li id="startNote">날짜별 기록은 10월 21일부터예요. 그 전에 본 사람은 '지금까지 본 사람'에만 들어 있어요.</li>
+      <li>이 통계 페이지를 열어도, 주소 끝에 <code>?test</code> 를 붙여 연 이벤트 페이지도 세지 않아요. <a href="../?test">이벤트 페이지 보기 (세지 않음)</a></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ── 설정 ── */
+  const API = 'https://abacus.jasoncameron.dev';
+  const NS = 'gnb21c-event';
+  const TOTAL_KEY = 'donkatsu-2026';
+  const DATA_START = '2026-10-21';                 // 날짜별 기록을 시작한 날 (한국 날짜)
+  const EVENT_START = '2026-10-26';                // 도전 시작 (그래프에 표시)
+  const CACHE = 'astana_stats_v1';                 // 지난 날짜 숫자는 이 휴대폰에 기억 (그날이 지나면 안 바뀜)
+  const REFRESH_MS = 60000;
+
+  const DAY = 864e5, KST = 9 * 36e5;
+  const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+  const $ = (id) => document.getElementById(id);
+  const kstDay = (t) => Math.floor((t + KST) / DAY);
+  const dayOf = (iso) => Math.floor(Date.parse(`${iso}T00:00:00Z`) / DAY);
+  const ymd = (d) => new Date(d * DAY).toISOString().slice(0, 10).replace(/-/g, '');
+  const md = (d) => { const x = new Date(d * DAY); return `${x.getUTCMonth() + 1}/${x.getUTCDate()}`; };
+  const longDate = (d) => { const x = new Date(d * DAY); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일(${WEEK[x.getUTCDay()]})`; };
+  const fmt = (n) => Number(n).toLocaleString('ko-KR');
+  const START_DAY = dayOf(DATA_START), EVENT_DAY = dayOf(EVENT_START);
+  const SVGNS = 'http://www.w3.org/2000/svg';
+
+  let rows = [];          // [{d, day, nw, ret}]
+  let total = null;
+  let rangeDays = 0;      // 0 = 전체
+  let busy = false;
+
+  /* ── 숫자 받아오기 ── */
+  async function getCount(key) {
+    const r = await fetch(`${API}/get/${NS}/${key}`, { cache: 'no-store' });
+    if (r.status === 404) return 0;                  // 아직 아무도 안 셈
+    if (!r.ok) throw new Error(String(r.status));
+    const j = await r.json();
+    return Math.max(0, Number(j.value) || 0);
+  }
+  async function pool(tasks, n) {                     // 한 번에 n개씩만 (집계 서비스 부담 줄이기)
+    const out = new Array(tasks.length); let i = 0;
+    const run = async () => { while (i < tasks.length) { const k = i++; try { out[k] = await tasks[k](); } catch (e) { out[k] = e; } } };
+    await Promise.all(Array.from({ length: Math.min(n, tasks.length) }, run));
+    return out;
+  }
+  function readCache() { try { return JSON.parse(localStorage.getItem(CACHE) || '{}') || {}; } catch (e) { return {}; } }
+  function writeCache(c) { try { localStorage.setItem(CACHE, JSON.stringify(c)); } catch (e) { /* 저장 금지 */ } }
+
+  async function load() {
+    if (busy) return; busy = true;
+    $('chart').classList.add('is-loading');
+    const today = kstDay(Date.now());
+    const cache = readCache();
+    const days = [];
+    for (let d = START_DAY; d <= Math.max(today, START_DAY); d++) days.push(d);
+    const need = days.filter((d) => !(cache[ymd(d)] && d <= today - 2));   // 오늘·어제는 늘 새로
+    const tasks = [() => getCount(TOTAL_KEY)];
+    need.forEach((d) => { tasks.push(() => getCount(`dk-day-${ymd(d)}`)); tasks.push(() => getCount(`dk-new-${ymd(d)}`)); });
+    const res = await pool(tasks, 4);
+    let failed = 0;
+    if (res[0] instanceof Error) failed++; else total = res[0];
+    need.forEach((d, i) => {
+      const a = res[1 + i * 2], b = res[2 + i * 2];
+      if (a instanceof Error || b instanceof Error) { failed++; return; }
+      cache[ymd(d)] = [a, b];
+    });
+    const keep = {};
+    days.forEach((d) => { if (cache[ymd(d)] && d <= today - 2) keep[ymd(d)] = cache[ymd(d)]; });
+    writeCache(keep);
+    rows = days.map((d) => {
+      const v = cache[ymd(d)];
+      if (!v) return { d, day: null, nw: null, ret: null };
+      const nw = v[1], day = Math.max(v[0], v[1]);   // 그날 본 사람은 처음 본 사람보다 적을 수 없음
+      return { d, day, nw, ret: day - nw };
+    });
+    busy = false;
+    $('chart').classList.remove('is-loading');
+    const now = new Date(Date.now() + KST);
+    $('updated').textContent = `${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())} 기준`;
+    const st = $('status');
+    st.classList.toggle('err', failed > 0);
+    st.textContent = failed ? (failed >= need.length + 1 ? '집계 서비스에 연결하지 못했어요. 잠시 뒤 새로고침해 주세요.' : '일부 날짜를 불러오지 못했어요. 새로고침해 주세요.') : '';
+    renderAll();
+  }
+  const pad = (n) => String(n).padStart(2, '0');
+
+  /* ── 요약 숫자 ── */
+  function renderKpis() {
+    const today = kstDay(Date.now());
+    const t = rows.find((r) => r.d === today), y = rows.find((r) => r.d === today - 1);
+    $('kTotal').innerHTML = total == null ? '–' : `${fmt(total)}<small>명</small>`;
+    const sumNew = rows.reduce((s, r) => s + (r.nw || 0), 0);
+    const before = total == null ? 0 : Math.max(0, total - sumNew);
+    $('kTotalNote').textContent = before > 0 ? `날짜별 기록 전에 본 ${fmt(before)}명 포함` : '';
+    $('kToday').innerHTML = t && t.day != null ? `${fmt(t.day)}<small>명</small>` : '–';
+    $('kYesterday').textContent = y && y.day != null ? `어제 ${fmt(y.day)}명` : '';
+    $('kNew').innerHTML = t && t.nw != null ? `${fmt(t.nw)}<small>명</small>` : '–';
+    $('kReturn').textContent = t && t.ret != null ? `다시 본 사람 ${fmt(t.ret)}명` : '';
+  }
+
+  /* ── 그래프 ── */
+  function niceStep(max) {
+    const raw = Math.max(1, max / 4);
+    const p = Math.pow(10, Math.floor(Math.log10(raw)));
+    for (const m of [1, 2, 2.5, 5, 10]) { const s = m * p; if (s >= raw && Number.isInteger(s)) return s; }
+    return 10 * p;
+  }
+  function el(name, attrs, parent) {
+    const n = document.createElementNS(SVGNS, name);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function topRounded(x, y, w, h, r) {               // 위만 둥근 막대 (바닥은 각지게)
+    r = Math.min(r, w / 2, h);
+    return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+  }
+  function visibleRows() { return rangeDays ? rows.slice(-rangeDays) : rows; }
+
+  function renderChart() {
+    const box = $('chart');
+    box.textContent = '';
+    hideTip();
+    const data = visibleRows();
+    const W = Math.max(280, box.clientWidth);
+    const TOP = 34, PH = 190, XB = 28, LEFT = 30, RIGHT = 8;
+    const H = TOP + PH + XB, base = TOP + PH, plotW = W - LEFT - RIGHT;
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': '날짜별 본 사람 막대그래프. 표로 보기에서 숫자를 볼 수 있어요.' }, box);
+    const max = Math.max(0, ...data.map((r) => r.day || 0));
+    const step = max === 0 ? 1 : niceStep(max);
+    const yMax = max === 0 ? 4 : Math.ceil(max / step) * step;
+    const y = (v) => base - (v / yMax) * PH;
+    // 눈금선
+    for (let v = 0; v <= yMax + 1e-9; v += step) {
+      el('line', { x1: LEFT, x2: W - RIGHT, y1: y(v), y2: y(v), stroke: v === 0 ? 'var(--axis)' : 'var(--grid)', 'stroke-width': 1, 'shape-rendering': 'crispEdges' }, svg);
+      const t = el('text', { x: LEFT - 6, y: y(v) + 4, 'text-anchor': 'end', class: 'tick' }, svg); t.textContent = fmt(v);
+    }
+    const n = data.length, band = plotW / n;
+    const bw = Math.max(3, Math.min(24, band * 0.62));
+    const today = kstDay(Date.now());
+    // 도전 시작 표시
+    const ei = data.findIndex((r) => r.d === EVENT_DAY);
+    if (ei >= 0) {
+      const ex = LEFT + band * ei;
+      el('line', { x1: ex, x2: ex, y1: TOP - 14, y2: base, stroke: 'var(--axis)', 'stroke-width': 1, 'shape-rendering': 'crispEdges' }, svg);
+      const t = el('text', { x: ex + 4, y: TOP - 18, class: 'anno', 'text-anchor': ex > W - 70 ? 'end' : 'start' }, svg);
+      if (ex > W - 70) t.setAttribute('x', ex - 4);
+      t.textContent = '도전 시작';
+    }
+    // 막대
+    let maxI = -1; data.forEach((r, i) => { if ((r.day || 0) > 0 && (maxI < 0 || r.day >= data[maxI].day)) maxI = i; });
+    const labelAt = new Set([n - 1, maxI].filter((i) => i >= 0 && data[i].day > 0));
+    data.forEach((r, i) => {
+      const x = LEFT + band * i + (band - bw) / 2;
+      if (r.day) {
+        const h1 = r.nw ? Math.max(2, (r.nw / yMax) * PH) : 0;
+        const h2 = r.ret ? Math.max(2, (r.ret / yMax) * PH) : 0;
+        if (h1) el(h2 ? 'rect' : 'path', h2 ? { x, y: base - h1, width: bw, height: h1, fill: 'var(--s1)' } : { d: topRounded(x, base - h1, bw, h1, 4), fill: 'var(--s1)' }, svg);
+        if (h2) {
+          const gap = h1 ? 2 : 0;
+          const top = base - h1 - h2;
+          el('path', { d: topRounded(x, top, bw, Math.max(1, h2 - gap), 4), fill: 'var(--s2)' }, svg);
+        }
+        if (labelAt.has(i)) {
+          const t = el('text', { x: x + bw / 2, y: y(r.day) - 6, 'text-anchor': 'middle', class: 'dlabel' }, svg);
+          t.textContent = fmt(r.day);
+        }
+      }
+    });
+    // 날짜 글자 (최대 6~7개, 오늘부터 거꾸로)
+    const every = Math.max(1, Math.ceil(n / 6));
+    data.forEach((r, i) => {
+      if ((n - 1 - i) % every) return;
+      const t = el('text', { x: LEFT + band * i + band / 2, y: base + 18, 'text-anchor': 'middle', class: 'tick' }, svg);
+      t.textContent = r.d === today ? '오늘' : md(r.d);
+    });
+    // 손가락·마우스 영역 (막대보다 넓게, 칸 전체)
+    data.forEach((r, i) => {
+      const hx = LEFT + band * i;
+      const hit = el('rect', { x: hx, y: TOP - 8, width: band, height: PH + 8, class: 'hit', tabindex: 0,
+        'aria-label': `${longDate(r.d)} 그날 본 사람 ${r.day == null ? '불러오지 못함' : r.day + '명'}, 처음 본 사람 ${r.nw ?? '-'}명, 다시 본 사람 ${r.ret ?? '-'}명` }, svg);
+      const show = () => { svg.querySelectorAll('.hit.on').forEach((h) => h.classList.remove('on')); hit.classList.add('on'); showTip(r, hx + band / 2, r.day ? y(r.day) : base, W); };
+      hit.addEventListener('pointerenter', show);
+      hit.addEventListener('pointerdown', show);
+      hit.addEventListener('focus', show);
+      hit.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { hit.classList.remove('on'); hideTip(); } });
+      hit.addEventListener('blur', () => { hit.classList.remove('on'); hideTip(); });
+    });
+    if (max === 0) {
+      const e = document.createElement('div'); e.className = 'empty';
+      e.textContent = rows.some((r) => r.day != null) ? '아직 기록이 없어요. 손님이 페이지를 열면 여기에 쌓여요.' : '';
+      box.appendChild(e);
+    }
+  }
+
+  function showTip(r, cx, topY, W) {
+    const tip = $('tip');
+    tip.textContent = '';
+    const div = (cls, parent) => { const d = document.createElement('div'); d.className = cls; parent.appendChild(d); return d; };
+    const dt = div('date', tip); dt.textContent = longDate(r.d) + (r.d === kstDay(Date.now()) ? ' · 오늘' : '');
+    const line = (key, val, name, extra) => {
+      const row = div('row' + (extra || ''), tip);
+      const k = document.createElement('i'); k.className = 'key ' + key; row.appendChild(k);
+      const b = document.createElement('b'); b.textContent = val == null ? '–' : `${fmt(val)}명`; row.appendChild(b);
+      const s = document.createElement('span'); s.textContent = name; row.appendChild(s);
+    };
+    line('s1', r.nw, '처음 본 사람');
+    line('s2', r.ret, '다시 본 사람');
+    line('sum', r.day, '그날 본 사람', ' total');
+    tip.hidden = false;
+    const card = tip.parentElement, chart = $('chart');
+    const offX = chart.offsetLeft, offY = chart.offsetTop;
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let left = offX + cx - tw / 2;
+    left = Math.max(8, Math.min(card.clientWidth - tw - 8, left));
+    let top = offY + topY - th - 12;
+    if (top < 8) top = offY + topY + 12;
+    tip.style.left = `${left}px`; tip.style.top = `${top}px`;
+  }
+  function hideTip() { const t = $('tip'); if (t) t.hidden = true; }
+
+  /* ── 표 ── */
+  function renderTable() {
+    const tb = $('tbody'); tb.textContent = '';
+    const today = kstDay(Date.now());
+    visibleRows().slice().reverse().forEach((r) => {
+      const tr = document.createElement('tr');
+      const cells = [longDate(r.d) + (r.d === today ? ' 오늘' : ''), r.day, r.nw, r.ret];
+      cells.forEach((c, i) => {
+        const td = document.createElement(i === 0 ? 'th' : 'td');
+        if (i === 0) td.scope = 'row';
+        if (i === 1) td.className = 'sum';
+        td.textContent = i === 0 ? c : (c == null ? '–' : fmt(c));
+        tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+  }
+
+  function renderAll() { renderKpis(); renderChart(); renderTable(); }
+
+  /* ── 기간 선택 ── */
+  function setRange(days) {
+    rangeDays = days;
+    document.querySelectorAll('#range button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.days) === days)));
+    if (rows.length) { renderChart(); renderTable(); }
+  }
+  document.querySelectorAll('#range button').forEach((b) => b.addEventListener('click', () => setRange(Number(b.dataset.days))));
+  setRange(0);
+
+  $('tableToggle').addEventListener('click', () => {
+    const w = $('tableWrap'), open = w.hidden;
+    w.hidden = !open;
+    $('tableToggle').setAttribute('aria-expanded', String(open));
+    $('tableToggle').textContent = open ? '표 닫기' : '표로 보기';
+  });
+  $('refresh').addEventListener('click', load);
+  document.addEventListener('pointerdown', (e) => { if (!e.target.closest || !e.target.closest('.hit')) { hideTip(); document.querySelectorAll('.hit.on').forEach((h) => h.classList.remove('on')); } });
+  let rz = 0, lastW = $('chart').clientWidth;
+  window.addEventListener('resize', () => {           // 폭이 바뀔 때만 (휴대폰 주소창이 접히는 높이 변화는 무시)
+    clearTimeout(rz);
+    rz = setTimeout(() => { const w = $('chart').clientWidth; if (w !== lastW && rows.length) { lastW = w; renderChart(); } }, 150);
+  });
+  setInterval(() => { if (document.visibilityState === 'visible') load(); }, REFRESH_MS);
+  $('startNote').textContent = `날짜별 기록은 ${longDate(START_DAY)}부터예요. 그 전에 본 사람은 '지금까지 본 사람'에만 들어 있어요.`;
+  load();
+})();
+</script>
+</body>
+</html>

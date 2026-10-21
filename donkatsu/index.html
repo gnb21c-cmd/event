@@ -563,6 +563,8 @@ html:not(.js) .poster picture { display: none; }
   const COUNTER_NS = 'gnb21c-event';
   const COUNTER_KEY = 'donkatsu-2026';
   const SEEN = 'astana_donkatsu_seen';
+  const DAY_SEEN = 'astana_donkatsu_day';           // 이 브라우저가 마지막으로 '그날 본 사람'에 세어진 날짜 (YYYYMMDD)
+  // 날짜별 기록: dk-day-YYYYMMDD = 그날 본 사람, dk-new-YYYYMMDD = 그날 처음 본 사람
   // 카카오 개발자 앱의 JavaScript 키를 넣으면 카카오톡 공유 창이 바로 열려요. 비워 두면 휴대폰 공유 메뉴를 씁니다.
   const KAKAO_JS_KEY = '';
   const KAKAO_SDK = 'https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js';
@@ -627,15 +629,33 @@ html:not(.js) .poster picture { display: none; }
     };
     requestAnimationFrame(step);
   }
+  function lastDay() {
+    try { const v = localStorage.getItem(DAY_SEEN); if (v) return v; } catch (e) { /* 무시 */ }
+    const m = document.cookie.match(new RegExp(`(?:^|; )${DAY_SEEN}=(\\d{8})`));
+    return m ? m[1] : '';
+  }
+  function markDay(ymd) {
+    try { localStorage.setItem(DAY_SEEN, ymd); } catch (e) { /* 저장 금지된 브라우저 */ }
+    document.cookie = `${DAY_SEEN}=${ymd}; max-age=31536000; path=/; SameSite=Lax`;
+  }
+  const hit = (key) => fetch(`${COUNTER_URL}/hit/${COUNTER_NS}/${key}`, { cache: 'no-store' });
   (function countViewer() {
     const box = $('viewers');
     const bot = navigator.webdriver || /bot|crawl|spider|slurp|facebookexternalhit|kakaotalk-scrap/i.test(navigator.userAgent);
     const test = new URLSearchParams(location.search).has('test');
-    const mode = wasSeen() || bot || test ? 'get' : 'hit';
+    const counting = !bot && !test;
+    const ymd = isoDay(kstDay(Date.now())).replace(/-/g, '');   // 한국 날짜
+    if (counting && lastDay() !== ymd) {                          // 오늘 처음 연 브라우저 → 그날 본 사람 +1
+      hit(`dk-day-${ymd}`).then((r) => { if (r.ok) markDay(ymd); }).catch(() => {});
+    }
+    const mode = counting && !wasSeen() ? 'hit' : 'get';
     fetch(`${COUNTER_URL}/${mode}/${COUNTER_NS}/${COUNTER_KEY}`, { cache: 'no-store' })
       .then((r) => (r.status === 404 ? { value: 0 } : r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
       .then((d) => {
-        if (mode === 'hit') markSeen();
+        if (mode === 'hit') {                                     // 처음 본 사람 → 누적 +1, 그날 처음 본 사람 +1
+          markSeen();
+          hit(`dk-new-${ymd}`).catch(() => {});
+        }
         box.classList.add('is-ready');
         roll($('viewersNum'), Math.max(0, Number(d.value) || 0));
       })
