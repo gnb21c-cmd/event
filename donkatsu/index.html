@@ -120,7 +120,27 @@ b, strong { font-weight: 900; }
   box-shadow: 0 6px 0 var(--ink);
   text-align: left;
 }
-.countdown__head { margin-bottom: 10px; }
+/* 진행 중: 왼쪽 글자 + 오른쪽 버튼 / 시작 전: 카운트다운 아래 버튼 두 개 나란히 */
+.cd-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "head head" "body body" "book share"; gap: 10px; align-items: center; }
+.is-live .cd-grid { grid-template-columns: minmax(0, 1fr) clamp(100px, 29vw, 128px); grid-template-areas: "head book" "body share"; column-gap: 10px; row-gap: 12px; }
+.cd-head { grid-area: head; min-width: 0; }
+.cd-body { grid-area: body; min-width: 0; }
+.mini-btn--book { grid-area: book; }
+.mini-btn--share { grid-area: share; }
+.mini-btn {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  min-height: 64px; padding: 8px 6px;
+  border: 3px solid var(--ink); border-radius: 16px;
+  box-shadow: 0 4px 0 var(--ink);
+  font: 400 18px/1.15 var(--round); text-align: center; text-decoration: none;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform .08s, box-shadow .08s;
+}
+.mini-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.mini-btn:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+.mini-btn svg { flex: none; width: 22px; height: 22px; }
+.mini-btn--book { background: var(--pink); color: var(--white); }
+.mini-btn--share { background: var(--kakao); color: var(--kakao-ink); font-size: 14.5px; }
 .countdown__label { font-family: var(--round); font-size: 18px; line-height: 1.3; }
 .countdown__label em { font-style: normal; color: var(--pink); }
 .viewers {
@@ -151,14 +171,15 @@ b, strong { font-weight: 900; }
 .tile small { display: block; margin-top: 3px; font-size: 12px; font-weight: 700; color: #FFE9D6; }
 .tile b.bump { animation: bump .35s ease-out; }
 @keyframes bump { 0% { transform: translateY(-5px) scale(1.12); } 100% { transform: none; } }
-.live { display: none; font-weight: 700; }
-.live p { margin: 0; }
-.live .live__day { display: inline-block; margin-bottom: 6px; padding: 2px 10px; border-radius: 999px; background: var(--pink); color: var(--white); font-family: var(--round); font-weight: 400; font-size: 15px; }
+.live { display: none; margin: 0; font-weight: 700; }
+.live__day { display: none; width: fit-content; margin-top: 6px; padding: 2px 10px; border-radius: 999px; background: var(--pink); color: var(--white); font-family: var(--round); font-size: 15px; }
 .live strong { color: var(--pink-dark); }
+.live .nw { white-space: nowrap; }
+.is-live .live { font-size: 15.5px; line-height: 1.5; }
 /* 한 줄로: 화면 폭(최대 480px)에서 칸 여백 78px을 뺀 만큼에 맞춰 글자 크기를 줄임 */
 .mileage-note { margin: 12px 0 0; padding: 8px 6px; border-radius: 12px; background: var(--cream); font-size: min(13.5px, calc((min(100vw, 480px) - 78px) * 0.0402)); font-weight: 700; line-height: 1.45; letter-spacing: -.2px; text-align: center; white-space: nowrap; }
 .is-live .tiles { display: none; }
-.is-live .live { display: block; }
+.is-live .live, .is-live .live__day { display: block; }
 
 .poster { margin: 0 0 6px; }
 html:not(.js) .poster picture { display: none; }
@@ -316,26 +337,8 @@ html:not(.js) .poster picture { display: none; }
 .cta { margin-top: 56px; padding-top: 58px; background: linear-gradient(180deg, #FFF0F4 0%, var(--white) 70%); text-align: center; }
 .cta .pig { position: absolute; left: 50%; top: -64px; width: 112px; transform: translateX(-50%) rotate(-4deg); filter: drop-shadow(0 4px 0 rgba(59,33,22,.25)); }
 .cta p { margin: 0 0 18px; font-weight: 700; color: var(--ink-soft); }
-.btn {
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; min-height: 60px;
-  margin: 0 0 14px;
-  padding: 0 18px;
-  border: 3px solid var(--ink);
-  border-radius: 18px;
-  font: 400 21px/1.2 var(--round);
-  text-decoration: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform .08s, box-shadow .08s;
-}
-.btn:active { transform: translateY(4px); }
-.btn--book { background: var(--pink); color: var(--white); box-shadow: 0 6px 0 var(--ink); }
-.btn--book:active { box-shadow: 0 2px 0 var(--ink); }
-.btn--share { background: var(--kakao); color: var(--kakao-ink); box-shadow: 0 6px 0 var(--ink); }
-.btn--share:active { box-shadow: 0 2px 0 var(--ink); }
-.btn svg { flex: none; width: 24px; height: 24px; }
-.btn:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+.to-top { display: inline-block; margin: 0 0 6px; padding: 6px 14px; border: 2px solid var(--ink); border-radius: 999px; background: var(--white); color: var(--ink); font: 400 16px/1.3 var(--round); text-decoration: none; }
+.to-top:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
 .fine { margin: 6px 0 0 !important; font-size: 12px; font-weight: 400 !important; color: var(--ink-soft); }
 .foot { margin: 22px 16px 0; text-align: center; font-size: 12px; color: var(--ink-soft); }
 
@@ -382,19 +385,29 @@ html:not(.js) .poster picture { display: none; }
     <p class="hero__sub">오면 올수록 돈까스가 <mark>공짜!</mark><br>역대급 무한 리필(?) 혜택</p>
 
     <section class="countdown" id="countdown" aria-label="이벤트 시작 카운트다운">
-      <div class="countdown__head">
-        <span class="countdown__label" id="cdLabel"><em>10월 26일(월) 오전 10시</em><br>도전 시작까지</span>
-        <span class="viewers" id="viewers" title="이 소식을 본 사람 수"><span aria-hidden="true">👀</span><span class="viewers__num" id="viewersNum">00000</span><span class="viewers__unit">명이 봤어요</span></span>
-      </div>
-      <div class="tiles" role="timer" aria-live="off">
-        <div class="tile"><b id="cdD">00</b><small>일</small></div>
-        <div class="tile"><b id="cdH">00</b><small>시간</small></div>
-        <div class="tile"><b id="cdM">00</b><small>분</small></div>
-        <div class="tile"><b id="cdS">00</b><small>초</small></div>
-      </div>
-      <div class="live" id="cdLive">
-        <span class="live__day" id="liveDay">D+1일째</span>
-        <p>오늘 첫 방문하면 <strong id="liveDeadline"></strong>까지<br>다시 오면 돈까스 득템!</p>
+      <span class="viewers" id="viewers" title="이 소식을 본 사람 수"><span aria-hidden="true">👀</span><span class="viewers__num" id="viewersNum">00000</span><span class="viewers__unit">명이 봤어요</span></span>
+      <div class="cd-grid">
+        <div class="cd-head">
+          <span class="countdown__label" id="cdLabel"><em>10월 26일(월) 오전 10시</em><br>도전 시작까지</span>
+          <span class="live__day" id="liveDay">D+1일째</span>
+        </div>
+        <a class="mini-btn mini-btn--book" id="bookBtn" href="https://m.booking.naver.com/booking/12/bizes/653244?theme=place&amp;entry=pll&amp;lang=ko">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span>예약하기</span>
+        </a>
+        <div class="cd-body">
+          <div class="tiles" role="timer" aria-live="off">
+            <div class="tile"><b id="cdD">00</b><small>일</small></div>
+            <div class="tile"><b id="cdH">00</b><small>시간</small></div>
+            <div class="tile"><b id="cdM">00</b><small>분</small></div>
+            <div class="tile"><b id="cdS">00</b><small>초</small></div>
+          </div>
+          <p class="live" id="cdLive">오늘 첫 방문하면<br><span class="nw"><strong id="liveDeadline"></strong>까지</span><br>다시 오면 돈까스 득템!</p>
+        </div>
+        <button class="mini-btn mini-btn--share" id="shareBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5C6.75 3.5 2.5 6.86 2.5 11c0 2.65 1.74 4.98 4.37 6.32l-.9 3.3c-.08.3.26.54.52.37l3.92-2.6c.52.07 1.05.11 1.59.11 5.25 0 9.5-3.36 9.5-7.5S17.25 3.5 12 3.5z" fill="currentColor"/></svg>
+          <span>친구에게<br>소식 공유하기</span>
+        </button>
       </div>
       <p class="mileage-note"><span aria-hidden="true">⏸️</span> 이벤트 기간 마일리지는 누적 카운트되지 않습니다.</p>
     </section>
@@ -531,14 +544,7 @@ html:not(.js) .poster picture { display: none; }
       </picture>
       <h2 id="ctaTitle">콤보는 <mark>첫 방문</mark>부터!</h2>
       <p id="ctaText">10월 26일, 첫 방문을 예약하고 도전을 시작하세요</p>
-      <a class="btn btn--book" href="https://m.booking.naver.com/booking/12/bizes/653244?theme=place&amp;entry=pll&amp;lang=ko">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        예약하기
-      </a>
-      <button class="btn btn--share" id="shareBtn" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5C6.75 3.5 2.5 6.86 2.5 11c0 2.65 1.74 4.98 4.37 6.32l-.9 3.3c-.08.3.26.54.52.37l3.92-2.6c.52.07 1.05.11 1.59.11 5.25 0 9.5-3.36 9.5-7.5S17.25 3.5 12 3.5z" fill="currentColor"/></svg>
-        친구에게 소식 공유하기
-      </button>
+      <a class="to-top" href="#countdown">예약·공유 버튼은 맨 위에 있어요 <span aria-hidden="true">↑</span></a>
       <p class="fine">이미지는 실제와 다를 수 있습니다.</p>
     </section>
   </main>
